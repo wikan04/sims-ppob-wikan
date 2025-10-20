@@ -82,7 +82,6 @@ const TopUp = () => {
 
     const topUpAmount = parseInt(amount);
 
-    // Validasi
     if (!amount || topUpAmount <= 0) {
       setErrorMessage("Nominal top up harus lebih dari 0");
       setShowErrorModal(true);
