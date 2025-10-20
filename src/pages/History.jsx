@@ -52,7 +52,6 @@ const History = () => {
     }
   };
 
-  // Get months that have transactions
   const monthsWithTransactions = useMemo(() => {
     const monthsSet = new Set();
 
@@ -65,12 +64,10 @@ const History = () => {
     return monthsSet;
   }, [history.records, allMonths]);
 
-  // Check if selected month has transactions
   const hasTransactionsInSelectedMonth = selectedMonth
     ? monthsWithTransactions.has(selectedMonth)
     : true;
 
-  // Filter transactions by selected month
   const filteredTransactions = useMemo(() => {
     if (!selectedMonth) return history.records;
 

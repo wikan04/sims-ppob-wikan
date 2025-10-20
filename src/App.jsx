@@ -5,14 +5,12 @@ import Layout from "./components/layout/Layout";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 
-// Protected Pages (sementara kosong dulu)
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import TopUp from "./pages/TopUp";
 import Payment from "./pages/Payment";
 import History from "./pages/History";
 
-// Protected Route
 import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
