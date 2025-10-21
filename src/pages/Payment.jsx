@@ -8,20 +8,16 @@ import {
   createTransaction,
   reset,
 } from "../features/transaction/transactionSlice";
-import {
-  formatCurrency,
-  getProfileImage,
-  getAvatarWithFallback,
-} from "../utils/helpers";
+import { formatCurrency, getAvatarWithFallback } from "../utils/helpers";
+import PageHeader from "../components/common/PageHeader";
 import Button from "../components/common/Button";
 import ConfirmModal from "../components/common/ConfirmModal";
 import Modal from "../components/common/Modal";
 import ErrorModal from "../components/common/ErrorModal";
 import Loading from "../components/common/Loading";
-import { Banknote, Eye, EyeOff } from "lucide-react";
+import { Banknote } from "lucide-react";
 
 const Payment = () => {
-  const [showBalance, setShowBalance] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showResultModal, setShowResultModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
@@ -96,53 +92,12 @@ const Payment = () => {
     return <Loading />;
   }
 
-  const avatarProps = getAvatarWithFallback(getProfileImage(profile));
   const serviceIconProps = getAvatarWithFallback(selectedService.service_icon);
 
   return (
     <div className="min-h-screen bg-white">
       {/* Profile & Balance Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-start gap-8">
-          {/* Profile Section */}
-          <div className="flex items-center space-x-4">
-            <img
-              {...avatarProps}
-              alt="Profile"
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div>
-              <p className="text-sm text-gray-600">Selamat datang,</p>
-              <h2 className="text-3xl font-semibold">
-                {profile?.first_name} {profile?.last_name}
-              </h2>
-            </div>
-          </div>
-
-          {/* Balance Card */}
-          <div className="bg-gradient-to-r from-primary to-red-400 text-white rounded-lg p-6 w-[500px] relative overflow-hidden">
-            <div className="relative z-10">
-              <p className="text-sm mb-2">Saldo anda</p>
-              <h3 className="text-4xl font-bold mb-3">
-                {showBalance ? formatCurrency(balance) : "Rp •••••••"}
-              </h3>
-              <button
-                onClick={() => setShowBalance(!showBalance)}
-                className="text-xs font-medium flex items-center gap-1"
-              >
-                {showBalance ? "Tutup Saldo" : "Lihat Saldo"}
-                {showBalance ? (
-                  <EyeOff className="w-4 h-4" />
-                ) : (
-                  <Eye className="w-4 h-4" />
-                )}
-              </button>
-            </div>
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
-            <div className="absolute -right-5 bottom-5 w-28 h-28 bg-white opacity-10 rounded-full"></div>
-          </div>
-        </div>
-      </div>
+      <PageHeader profile={profile} balance={balance} />
 
       {/* Payment Form Section */}
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
@@ -163,7 +118,6 @@ const Payment = () => {
         <div className="mb-6">
           <div className="relative">
             <Banknote className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-
             <input
               type="text"
               value={formatCurrency(selectedService.service_tariff).replace(
@@ -186,14 +140,12 @@ const Payment = () => {
         </Button>
       </div>
 
-      {/* Error Modal */}
+      {/* Modals */}
       <ErrorModal
         isOpen={showErrorModal}
         onClose={handleCloseErrorModal}
         message={errorMessage}
       />
-
-      {/* Confirmation Modal */}
       <ConfirmModal
         isOpen={showConfirmModal}
         onClose={handleCancelConfirm}
@@ -205,8 +157,6 @@ const Payment = () => {
         icon={selectedService?.service_icon}
         iconType="image"
       />
-
-      {/* Result Modal */}
       <Modal
         isOpen={showResultModal}
         onClose={handleCloseResultModal}
