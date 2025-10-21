@@ -85,7 +85,7 @@ const History = () => {
       <PageHeader profile={profile} balance={balance} />
 
       {/* Transaction History Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h3 className="text-xl font-semibold mb-6">Semua Transaksi</h3>
 
         {/* Month Filter */}
@@ -100,8 +100,8 @@ const History = () => {
                   selectedMonth === month
                     ? "bg-gray-900 text-white"
                     : hasTransactions
-                    ? "bg-white text-gray-600 hover:bg-gray-100 border border-gray-300"
-                    : "bg-white text-gray-400 hover:bg-gray-50 border border-gray-200"
+                    ? "bg-white text-gray-600 !font-bold hover:bg-gray-100 "
+                    : "bg-white text-gray-400 hover:bg-gray-50 "
                 }`}
               >
                 {month}
