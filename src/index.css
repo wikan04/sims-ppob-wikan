@@ -26,3 +26,27 @@ body {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
+.banner-swiper {
+  padding-bottom: 40px !important;
+}
+
+.banner-swiper .swiper-pagination {
+  bottom: 0 !important;
+}
+
+.banner-swiper .swiper-pagination-bullet {
+  background: #d1d5db;
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}
+
+.banner-swiper .swiper-pagination-bullet-active {
+  background: #f42619;
+  width: 24px;
+  border-radius: 4px;
+}
+
+.banner-swiper .swiper-slide {
+  width: 350px;
+}

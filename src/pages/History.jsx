@@ -10,18 +10,15 @@ import {
 import {
   formatCurrency,
   formatDate,
-  getProfileImage,
-  getAvatarWithFallback,
   getAllMonths,
   getTransactionMonth,
   getTransactionColor,
   getTransactionSign,
 } from "../utils/helpers";
+import PageHeader from "../components/common/PageHeader";
 import Loading from "../components/common/Loading";
-import { Eye, EyeOff } from "lucide-react";
 
 const History = () => {
-  const [showBalance, setShowBalance] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(null);
   const dispatch = useDispatch();
 
@@ -82,58 +79,16 @@ const History = () => {
     return <Loading />;
   }
 
-  const avatarProps = getAvatarWithFallback(getProfileImage(profile));
-
   return (
     <div className="min-h-screen bg-white">
       {/* Profile & Balance Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex justify-between items-start gap-8">
-          {/* Profile Section */}
-          <div className="flex items-center space-x-4">
-            <img
-              {...avatarProps}
-              alt="Profile"
-              className="w-16 h-16 rounded-full object-cover"
-            />
-            <div>
-              <p className="text-sm text-gray-600">Selamat datang,</p>
-              <h2 className="text-3xl font-semibold">
-                {profile?.first_name} {profile?.last_name}
-              </h2>
-            </div>
-          </div>
-
-          {/* Balance Card */}
-          <div className="bg-gradient-to-r from-primary to-red-400 text-white rounded-lg p-6 w-[500px] relative overflow-hidden">
-            <div className="relative z-10">
-              <p className="text-sm mb-2">Saldo anda</p>
-              <h3 className="text-4xl font-bold mb-3">
-                {showBalance ? formatCurrency(balance) : "Rp •••••••"}
-              </h3>
-              <button
-                onClick={() => setShowBalance(!showBalance)}
-                className="text-xs font-medium flex items-center gap-1"
-              >
-                {showBalance ? "Tutup Saldo" : "Lihat Saldo"}
-                {showBalance ? (
-                  <EyeOff className="w-4 h-4" />
-                ) : (
-                  <Eye className="w-4 h-4" />
-                )}
-              </button>
-            </div>
-            <div className="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
-            <div className="absolute -right-5 bottom-5 w-28 h-28 bg-white opacity-10 rounded-full"></div>
-          </div>
-        </div>
-      </div>
+      <PageHeader profile={profile} balance={balance} />
 
       {/* Transaction History Section */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <h3 className="text-xl font-semibold mb-6">Semua Transaksi</h3>
 
-        {/* Month Filter - Show all 12 months */}
+        {/* Month Filter */}
         <div className="flex gap-4 mb-6 overflow-x-auto pb-2 scrollbar-hide">
           {allMonths.map((month) => {
             const hasTransactions = monthsWithTransactions.has(month);
@@ -145,8 +100,8 @@ const History = () => {
                   selectedMonth === month
                     ? "bg-gray-900 text-white"
                     : hasTransactions
-                    ? "bg-white text-gray-600 hover:bg-gray-100 border border-gray-300"
-                    : "bg-white text-gray-400 hover:bg-gray-50 border border-gray-200"
+                    ? "bg-white text-gray-600 !font-bold hover:bg-gray-100 "
+                    : "bg-white text-gray-400 hover:bg-gray-50 "
                 }`}
               >
                 {month}
